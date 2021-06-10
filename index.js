@@ -22,11 +22,11 @@ const run = async (urls) => {
 
 	}
 	console.log('resultado final:',result.length)
-	await clearResultArray(result).then(async (res) => {
+	await clearResultArray(result).then(res => {
 		final_result = res
 		console.log('resultado final limpio:',final_result.length)
-		await jsonWrite('./src/data/result.json',final_result)
 	})
+	await jsonWrite('./src/data/result.json',final_result)
 }
 
 // const prueba = async () => {
