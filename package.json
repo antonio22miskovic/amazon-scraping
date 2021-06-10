@@ -1,0 +1,19 @@
+{
+  "name": "amazonscraping",
+  "version": "1.0.0",
+  "description": "Amazon web scraping",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Ramon Villalobos",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.9",
+    "dotenv": "^8.6.0",
+    "mysql": "^2.18.1",
+    "node-cron": "^3.0.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
+  }
+}
