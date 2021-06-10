@@ -27,7 +27,7 @@ class Scraping {
 			var next_page_parte = $('.pages').find('ol > li').last().attr('data-url')
 			var next_page = null
 			if (next_page_parte !== undefined) {
-				var text = 'https://tiendamia.com/pe/search?amzs=watches&navigation=L3M/az13YXRjaGVzJmRjJnBhZ2U9MiZxaWQ9MTYyMzI0OTExNyZyZWY9c3JfcGdfMQ=='
+				var text = url
 				var result = text.trim().split('&navigation')
 				next_page = result[0] + next_page_parte
 				console.log(next_page)
@@ -63,7 +63,6 @@ class Scraping {
 					url: $(item).find('a').attr('href'),
 					img: $(item).find('img').attr('src'),
 					category:sacar_categoria_url[1],
-					// brand: clearString($(item).find('.item-brand').text()),
 					name: clearString($(item).find('.item-name').text()),
 				  now_price: prices.now,
 					price_real: prices.old,
@@ -188,7 +187,6 @@ class Scraping {
 					url: $(item).find('a').attr('href'),
 					img: $(item).find('.product-image').children('img').attr('src'),
 					category:sacar_categoria_url[1],
-					// brand: clearString($(item).find('.item-brand').text()),
 					name: clearString($(item).find('.block_holder').children('h2').text()),
 				  now_price: text_old_price,
 					price_real: price,

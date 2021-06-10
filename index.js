@@ -41,9 +41,19 @@ const run = async (urls) => {
 // 		final_result = res
 //  		console.log('resultado final limpio:',final_result.length)
 // 		})
+//  		await jsonWrite('./src/data/result.json',final_result)
 //  		// console.log(final_result)
+
 // }
 // prueba()
-run(urls)
+
+const iniciador = async (urls) => {
+	let json = await require('./src/data/result.json')
+	if (json.length  === 0) {
+		run(urls)
+	}
+}
+iniciador(urls)
+
 
 

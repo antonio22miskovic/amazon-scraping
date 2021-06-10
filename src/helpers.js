@@ -1,4 +1,4 @@
-
+const fs = require('fs')
 
 const clearString = (text) => { // limpia el formato obtenido del DOM
 	if (text === null) {
