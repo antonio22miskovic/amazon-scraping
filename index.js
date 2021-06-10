@@ -49,6 +49,7 @@ const run = async (urls) => {
 
 const iniciador = async (urls) => {
 	let json = await require('./src/data/result.json')
+	console.log('longitud del archivo',json)
 	if (json.length  === 0) {
 		run(urls)
 	}
