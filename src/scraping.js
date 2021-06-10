@@ -21,19 +21,66 @@ class Scraping {
 			await $('.body-result').children('div').each( (i, item ) => { // ajuntar los elementos en un array
 				elements.push(item)
 			})
-
 			var sacar_categoria_url = url.trim().split('=')
 
 			var next_page_parte = $('.pages').find('ol > li').last().attr('data-url')
 			var next_page = null
+
 			if (next_page_parte !== undefined) {
 				var text = url
 				var result = text.trim().split('&navigation')
 				next_page = result[0] + next_page_parte
-				console.log(next_page)
 			}
+
+			if (await $('.body-result').children('div').html() === null) {
+				console.log('entrando en la segunda estructura')
+				await this.secundScraping($,url).then(res => {
+					if (res.result.length !== 0) {
+						for (var i = 0; i < res.result.length; i++) {
+							result.push(res.result[i])
+						}
+					next_page = res.next
+					}
+				})
+				console.log('pasando el segundo proceso',result.length)
+				return {
+					result: result,
+					next: next_page === undefined ? null : next_page
+				}
+			}
+
 			for await ( let item of elements ) {
 
+				let product = await $(item).find('a').attr('href')
+				console.log('buscando la info que falta')
+				let $p = await request({
+					url: product,
+					headers: {
+		        'User-Agent': '	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
+		   		},
+					transform: body => cheerio.load(body)
+				})
+				console.log('info ya consultada')
+				var las_p = await $p('.short-description > div > p').toArray()
+				var las_img = await $p('.product-img-box-wrap').find('a').toArray()
+				var des = await $p('.short-description > #shortdesc_producto_ajax > p').toArray()
+				var imgs = await [
+					$p(las_img[0]).find('img').attr('src'),
+					$p(las_img[1]).find('img').attr('src'),
+					$p(las_img[2]).find('img').attr('src'),
+					$p(las_img[3]).find('img').attr('src'),
+					$p(las_img[4]).find('img').attr('src'),
+					$p(las_img[5]).find('img').attr('src'),
+				]
+				 var description = ''
+				 for await (let p of des) {
+				 		description = await description +'. '+clearString($p(p).text())
+				 }
+				console.log(imgs)
+				console.log(clearString($(las_p[2]).find('span').text()))
+				console.log(clearString($p(las_p[3]).find('span').text()))
+				console.log(clearString($p(las_p[4]).find('span').text()))
+				console.log(description)
 				var tax = null
 				var prices = null
 				var prices_currency =null
@@ -61,16 +108,20 @@ class Scraping {
 
 				let data = await  {
 					url: $(item).find('a').attr('href'),
-					img: $(item).find('img').attr('src'),
+					img: imgs,
 					category:sacar_categoria_url[1],
 					name: clearString($(item).find('.item-name').text()),
+					availability: clearString($(las_p[2]).find('span').text()),
+					brand: clearString($p(las_p[3]).find('span').text()),
+					weight:clearString($p(las_p[4]).find('span').text()),
 				  now_price: prices.now,
 					price_real: prices.old,
 					now_currente_price: prices_currency.now,
 					currente_price_real: prices_currency.old,
 					tax: tax,
 					rating: rating === null ? null : parseInt(rating),
-					discount: discount
+					discount: discount,
+					description:description
 				}
 				if (await
 					data.now_price  !== null  &&
@@ -81,28 +132,12 @@ class Scraping {
 						result.push(data)
 				}
 
-			}
+				}
 			console.log(result.length)
-			if (result.length === 0) {
-				await this.secundScrapind($,url).then(res => {
-					if (res.result.length !== 0) {
-						for (var i = 0; i < res.result.length; i++) {
-							result.push(res.result[i])
-						}
-					next_page = res.next
-					}
-				})
-				console.log('pasando el segundo proceso',result.length)
 
-				return {
-					result: result,
-					next: next_page === undefined ? null : next_page
-				}
-			}else{
-				return {
-					result: result,
-					next: next_page === undefined ? null : next_page
-				}
+			return {
+				result: result,
+				next: next_page === undefined ? null : next_page
 			}
 
 		} catch(e) {
@@ -112,7 +147,7 @@ class Scraping {
 
 	}
 
-	async secundScrapind ($,url) {
+	async secundScraping ($,url) {
 		try {
 
 			var elements = []
@@ -124,6 +159,8 @@ class Scraping {
 
 			var next_page = $('.pages').find('ol > li').children('a').last().attr('href')
 			var sacar_categoria_url = url.trim().split('=')
+
+
 			for await (let item of elements){
 
 				var tax = null
@@ -133,6 +170,37 @@ class Scraping {
 				var array3 = null
 				var array4 = null
 
+				let product = await $(item).find('a').attr('href')
+				console.log('buscando la info que falta en el segundo proceso')
+				let $p = await request({
+					url: product,
+					headers: {
+		        'User-Agent': '	Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/537.36'
+		   		},
+					transform: body => cheerio.load(body)
+				})
+				console.log('se odtuvo la info que falta en el segundo proceso')
+
+				var las_p = await $p('.short-description > div > p').toArray()
+				var las_img = await $p('.product-img-box-wrap').find('a').toArray()
+				var des = await $p('.short-description > #shortdesc_producto_ajax > p').toArray()
+				var imgs = await [
+					$p(las_img[0]).find('img').attr('src'),
+					$p(las_img[1]).find('img').attr('src'),
+					$p(las_img[2]).find('img').attr('src'),
+					$p(las_img[3]).find('img').attr('src'),
+					$p(las_img[4]).find('img').attr('src'),
+					$p(las_img[5]).find('img').attr('src'),
+				]
+				 var description = ''
+				 for await (let p of des) {
+				 		description = await description +'. '+clearString($p(p).text())
+				 }
+				// console.log(imgs)
+				// console.log(clearString($(las_p[2]).find('span').text()))
+				// console.log(clearString($p(las_p[3]).find('span').text()))
+				// console.log(clearString($p(las_p[4]).find('span').text()))
+				// console.log(description)
 
 				if (await $(item).find('img').attr('src') === undefined) { // ver si esta libre de impuesto
 					tax = 'with tax' // con impuesto
@@ -185,18 +253,22 @@ class Scraping {
 
 				let data = await  {
 					url: $(item).find('a').attr('href'),
-					img: $(item).find('.product-image').children('img').attr('src'),
+					img: imgs,
 					category:sacar_categoria_url[1],
 					name: clearString($(item).find('.block_holder').children('h2').text()),
+					availability: clearString($(las_p[2]).find('span').text()),
+					brand: clearString($p(las_p[3]).find('span').text()),
+					weight:clearString($p(las_p[4]).find('span').text()),
 				  now_price: text_old_price,
 					price_real: price,
 					now_currente_price: text_old_price_s,
 					currente_price_real: price_s,
 					tax: tax,
 					rating: rating === null ? null : parseInt(rating),
-					discount: discount
+					discount: discount,
+					description:description
 					}
-
+					// console.log(data)
 				if (await
 					data.now_price  !== null  &&
 					data.price_real  !==  null &&
