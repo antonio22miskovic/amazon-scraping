@@ -7,22 +7,22 @@ const getUrls = () => {
 		// 										/////calzados//////
 		// 												//hombres
 		'https://tiendamia.com/pe/categorias?amzc=calzado-hombre', //calzados hombres
-		// 'https://tiendamia.com/pe/categorias?amzc=deportivo-hombre&leftfilter=-_Amazon%20Fashion_X_Top%20Brands_-&filtersearch=L3M/aT1mYXNoaW9uLW1lbnMtc2hvZXMmYmJuPTYxMjc3NzAwMTEmcmg9biUzQTcxNDExMjMwMTElMkNuJTNBNzE0NzQ0MTAxMSUyQ24lM0E2NzkyNTUwMTElMkNuJTNBNjEyNzc3MDAxMSUyQ3BfMzYlM0EtMTk5MDAlMkNwX25fZmVhdHVyZV9laWdodGVlbl9icm93c2UtYmluJTNBMTQ2MzAzOTIwMTEmcz1mZWF0dXJlZC1yYW5rJmxvPWltYWdlJmRjJnFpZD0xNTU3NDg3NjIzJnJuaWQ9MTQ2MzAzODIwMTEmcmVmPXNyX25yX3Bfbl9mZWF0dXJlX2VpZ2h0ZWVuX2Jyb3dzZS1iaW5fMQ==',//zapatos hombres deportivos
-		// 'https://tiendamia.com/pe/categorias?amzc=casual-hombre', // calzados hombres casual
-		// 'https://tiendamia.com/pe/categorias?amzc=botas-hombre', // calzados hombres botas
+		'https://tiendamia.com/pe/categorias?amzc=deportivo-hombre&leftfilter=-_Amazon%20Fashion_X_Top%20Brands_-&filtersearch=L3M/aT1mYXNoaW9uLW1lbnMtc2hvZXMmYmJuPTYxMjc3NzAwMTEmcmg9biUzQTcxNDExMjMwMTElMkNuJTNBNzE0NzQ0MTAxMSUyQ24lM0E2NzkyNTUwMTElMkNuJTNBNjEyNzc3MDAxMSUyQ3BfMzYlM0EtMTk5MDAlMkNwX25fZmVhdHVyZV9laWdodGVlbl9icm93c2UtYmluJTNBMTQ2MzAzOTIwMTEmcz1mZWF0dXJlZC1yYW5rJmxvPWltYWdlJmRjJnFpZD0xNTU3NDg3NjIzJnJuaWQ9MTQ2MzAzODIwMTEmcmVmPXNyX25yX3Bfbl9mZWF0dXJlX2VpZ2h0ZWVuX2Jyb3dzZS1iaW5fMQ==',//zapatos hombres deportivos
+		'https://tiendamia.com/pe/categorias?amzc=casual-hombre', // calzados hombres casual
+		'https://tiendamia.com/pe/categorias?amzc=botas-hombre', // calzados hombres botas
 
-		// 											//damas
-		// 'https://tiendamia.com/pe/categorias?amzc=calzado-dama', //calzados damas
-		// 'https://tiendamia.com/pe/categorias?amzc=deportivo-dama&leftfilter=-_Amazon%20Fashion_X_Top%20Brands_-&filtersearch=L3M/aT1mYXNoaW9uLXdvbWVucy1zaG9lcyZiYm49Njc5MzYwMDExJnJoPW4lM0E3MTQxMTIzMDExJTJDbiUzQTcxNDc0NDAwMTElMkNuJTNBNjc5MzM3MDExJTJDbiUzQTYxMjc3NzEwMTElMkNuJTNBNjc5MzYwMDExJTJDcF8zNiUzQS0yMDAwMCUyQ3Bfbl9mZWF0dXJlX2VpZ2h0ZWVuX2Jyb3dzZS1iaW4lM0ExNDYzMDM5MjAxMSZsbz1pbWFnZSZkYyZxaWQ9MTU1NzcwNDQwMCZybmlkPTE0NjMwMzgyMDExJnJlZj1zcl9ucl9wX25fZmVhdHVyZV9laWdodGVlbl9icm93c2UtYmluXzE=', // calzados dama deprotivos
-		// 'https://tiendamia.com/pe/categorias?amzc=casual-dama', // calzados damas casual
-		// 'https://tiendamia.com/pe/categorias?amzc=vestir-dama', // calzados damas vestir
-		// 'https://tiendamia.com/pe/categorias?amzc=botas-dama', // calzados damas botas
+													//damas
+		'https://tiendamia.com/pe/categorias?amzc=calzado-dama', //calzados damas
+		'https://tiendamia.com/pe/categorias?amzc=deportivo-dama&leftfilter=-_Amazon%20Fashion_X_Top%20Brands_-&filtersearch=L3M/aT1mYXNoaW9uLXdvbWVucy1zaG9lcyZiYm49Njc5MzYwMDExJnJoPW4lM0E3MTQxMTIzMDExJTJDbiUzQTcxNDc0NDAwMTElMkNuJTNBNjc5MzM3MDExJTJDbiUzQTYxMjc3NzEwMTElMkNuJTNBNjc5MzYwMDExJTJDcF8zNiUzQS0yMDAwMCUyQ3Bfbl9mZWF0dXJlX2VpZ2h0ZWVuX2Jyb3dzZS1iaW4lM0ExNDYzMDM5MjAxMSZsbz1pbWFnZSZkYyZxaWQ9MTU1NzcwNDQwMCZybmlkPTE0NjMwMzgyMDExJnJlZj1zcl9ucl9wX25fZmVhdHVyZV9laWdodGVlbl9icm93c2UtYmluXzE=', // calzados dama deprotivos
+		'https://tiendamia.com/pe/categorias?amzc=casual-dama', // calzados damas casual
+		'https://tiendamia.com/pe/categorias?amzc=vestir-dama', // calzados damas vestir
+		'https://tiendamia.com/pe/categorias?amzc=botas-dama', // calzados damas botas
 
-		// 										//niños
-		// 'https://tiendamia.com/pe/categorias?amzc=calzado-nino', //calzados niños
+												//niños
+		'https://tiendamia.com/pe/categorias?amzc=calzado-nino', //calzados niños
 
-		// 										//niñas
-		// 'https://tiendamia.com/pe/categorias?amzc=calzado-nina', // calzados niña
+												//niñas
+		'https://tiendamia.com/pe/categorias?amzc=calzado-nina', // calzados niña
 
 		// 										//Cross
 		// 'https://tiendamia.com/pe/search?amzs=crocs', // calzados cross
