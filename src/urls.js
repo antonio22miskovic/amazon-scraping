@@ -2,7 +2,7 @@ const getUrls = () => {
 
 	return [
 
-		// 'https://tiendamia.com/pe/search?amzs=watches', // relojes
+		'https://tiendamia.com/pe/search?amzs=watches', // relojes
 
 		// 										/////calzados//////
 		// 												//hombres
