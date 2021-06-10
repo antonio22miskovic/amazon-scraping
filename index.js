@@ -55,6 +55,7 @@ const iniciador = async (urls) => {
 	}
 }
 iniciador(urls)
+console.log('en la aolicación')
 
 
 
