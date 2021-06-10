@@ -2,6 +2,7 @@
 const {getUrls} = require('./src/urls.js')
 const Scraping = require('./src/scraping.js')
 const {clearResultArray, jsonWrite} = require('./src/helpers.js')
+const cron = require('node-cron')
 
 let urls = getUrls()
 var result = []
@@ -54,8 +55,13 @@ const iniciador = async (urls) => {
 		run(urls)
 	}
 }
-iniciador(urls)
-console.log('en la aolicación')
+cron.schedule('* * * * * *', () => { // cronometro cada aproximadamente 2 minutos se realiza el scraping
+
+// iniciador(urls)
+console.log('en la aplicación')
+
+
+})
 
 
 
