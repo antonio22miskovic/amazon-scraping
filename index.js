@@ -55,13 +55,13 @@ const iniciador = async (urls) => {
 		run(urls)
 	}
 }
-cron.schedule('* * * * * *', () => { // cronometro cada aproximadamente 2 minutos se realiza el scraping
+// cron.schedule('*/2 * * * *', () => { // cronometro cada aproximadamente 2 minutos se realiza el scraping
 
-// iniciador(urls)
+// 	pageScraping()
+
+// })
+iniciador(urls)
 console.log('en la aplicación')
-
-
-})
 
 
 
