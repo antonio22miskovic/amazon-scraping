@@ -4,7 +4,7 @@
   "description": "Amazon web scraping",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node --max-old-space-size=4096 index.js"
   },
   "author": "Ramon Villalobos",
   "license": "ISC",
