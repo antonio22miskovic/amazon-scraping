@@ -79,6 +79,12 @@ class Scraping {
 				 		description = await description +'. '+clearString($p(p).text())
 				 }
 
+				var tallas_array = $p('.catalog-product-view > div > div').find('.last > dd > div > select > option').toArray()
+				var tallas = []
+				for await (let tallas_option of tallas_array) {
+				 	tallas.push({talla: clearString($p(tallas_option).text())})
+				 }
+
 				var dt = dateTime.create();
 				var created_at = dt.format('Y-m-d H:M:S');
 
@@ -116,6 +122,7 @@ class Scraping {
 					availability: clearString($(las_p[2]).find('span').text()),
 					brand: clearString($p(las_p[3]).find('span').text()),
 					weight:clearString($p(las_p[4]).find('span').text()),
+					tallas:tallas,
 				  now_price: prices.now,
 					price_real: prices.old,
 					now_currente_price: prices_currency.now,
@@ -202,6 +209,21 @@ class Scraping {
 				 		description = await description +'. '+clearString($p(p).text())
 				 }
 
+				var tallas_array = $p('.catalog-product-view > div > div').find('.last > dd > div > select > option').toArray()
+				var tallas = []
+				for await (let tallas_option of tallas_array) {
+				 	tallas.push({talla: clearString($p(tallas_option).text())})
+				}
+
+				var dd = $p('.catalog-product-view > div > div').find('dd').eq(1)
+				// console.log($p(dd).find('img').attr('src'))
+				var colores_array = $p(dd).find('img').toArray()
+				var colores = []
+				for await (let color of colores_array) {
+				 	colores.push({color: $p(color).attr('src')})
+				}
+
+
 				var dt = dateTime.create();
 				var created_at = dt.format('Y-m-d H:M:S');
 				// console.log(imgs)
@@ -264,11 +286,13 @@ class Scraping {
 					url: $(item).find('a').attr('href'),
 					sku:clearString($p(las_p_sku[1]).find('span').text()),
 					img: imgs,
+					colores:colores,
 					category:sacar_categoria_url[1],
 					name: clearString($(item).find('.block_holder').children('h2').text()),
 					availability: clearString($(las_p[2]).find('span').text()),
 					brand: clearString($p(las_p[3]).find('span').text()),
 					weight:clearString($p(las_p[4]).find('span').text()),
+					tallas:tallas,
 				  now_price: text_old_price,
 					price_real: price,
 					now_currente_price: text_old_price_s,
@@ -279,7 +303,7 @@ class Scraping {
 					description:description,
 					created_at:created_at
 					}
-					// console.log(data)
+
 				if (await
 					data.now_price  !== null  &&
 					data.price_real  !==  null &&
