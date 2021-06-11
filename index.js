@@ -17,14 +17,15 @@ const run = async (urls) => {
 				for (var i = 0; i < res.length; i++) {
 					result.push(res[i])
 				}
+				console.log('cantidad de productos acumulados:',result.length)
 			}
 		})
 
 	}
-	console.log('resultado final:',result.length)
+	console.log('resultado final de productos:',result.length)
 	await clearResultArray(result).then(res => {
 		final_result = res
-		console.log('resultado final limpio:',final_result.length)
+		console.log('resultado final sin productos repetidos:',final_result.length)
 	})
 	await jsonWrite('./src/data/result.json',final_result)
 }

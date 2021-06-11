@@ -43,7 +43,7 @@ class Scraping {
 					next_page = res.next
 					}
 				})
-				console.log('pasando el segundo proceso',result.length)
+				console.log('productos obtenidos en la page:',result.length)
 				return {
 					result: result,
 					next: next_page === undefined ? null : next_page
@@ -67,12 +67,12 @@ class Scraping {
 				var las_img = await $p('.product-img-box-wrap').find('a').toArray()
 				var des = await $p('.short-description > #shortdesc_producto_ajax > p').toArray()
 				var imgs = await [
-					{img_1: $p(las_img[0]).find('img').attr('src')},
-					{img_2: $p(las_img[1]).find('img').attr('src')},
-					{img_3: $p(las_img[2]).find('img').attr('src')},
-					{img_4: $p(las_img[3]).find('img').attr('src')},
-					{img_5: $p(las_img[4]).find('img').attr('src')},
-					{img_6: $p(las_img[5]).find('img').attr('src')},
+					{img_1: $p(las_img[0]).find('img').attr('src') === undefined ? null : $p(las_img[0]).find('img').attr('src')},
+					{img_2: $p(las_img[1]).find('img').attr('src') === undefined ? null : $p(las_img[1]).find('img').attr('src')},
+					{img_3: $p(las_img[2]).find('img').attr('src') === undefined ? null : $p(las_img[2]).find('img').attr('src')},
+					{img_4: $p(las_img[3]).find('img').attr('src') === undefined ? null : $p(las_img[3]).find('img').attr('src')},
+					{img_5: $p(las_img[4]).find('img').attr('src') === undefined ? null : $p(las_img[4]).find('img').attr('src')},
+					{img_6: $p(las_img[5]).find('img').attr('src') === undefined ? null : $p(las_img[5]).find('img').attr('src')},
 				]
 				 var description = ''
 				 for await (let p of des) {
@@ -190,12 +190,12 @@ class Scraping {
 				var las_img = await $p('.product-img-box-wrap').find('a').toArray()
 				var des = await $p('.short-description > #shortdesc_producto_ajax > p').toArray()
 				var imgs = await [
-					{img_1: $p(las_img[0]).find('img').attr('src')},
-					{img_2: $p(las_img[1]).find('img').attr('src')},
-					{img_3: $p(las_img[2]).find('img').attr('src')},
-					{img_4: $p(las_img[3]).find('img').attr('src')},
-					{img_5: $p(las_img[4]).find('img').attr('src')},
-					{img_6: $p(las_img[5]).find('img').attr('src')},
+					{img_1: $p(las_img[0]).find('img').attr('src') === undefined ? null : $p(las_img[0]).find('img').attr('src')},
+					{img_2: $p(las_img[1]).find('img').attr('src') === undefined ? null : $p(las_img[1]).find('img').attr('src')},
+					{img_3: $p(las_img[2]).find('img').attr('src') === undefined ? null : $p(las_img[2]).find('img').attr('src')},
+					{img_4: $p(las_img[3]).find('img').attr('src') === undefined ? null : $p(las_img[3]).find('img').attr('src')},
+					{img_5: $p(las_img[4]).find('img').attr('src') === undefined ? null : $p(las_img[4]).find('img').attr('src')},
+					{img_6: $p(las_img[5]).find('img').attr('src') === undefined ? null : $p(las_img[5]).find('img').attr('src')},
 				]
 				 var description = ''
 				 for await (let p of des) {
@@ -290,7 +290,6 @@ class Scraping {
 				}
 
 			}
-			console.log(result.length)
 
 			return {
 				result: result ,
@@ -329,7 +328,7 @@ class Scraping {
 			if (await total_page > 30) {
 				total_page = 30
 			}
-			var array_para_iterar = [1]
+			var array_para_iterar = [1,2]
 			// for (var i = 0; i < total_page; i++) {
 			// 	array_para_iterar.push(i)
 			// }
@@ -357,6 +356,7 @@ class Scraping {
 					})
 				}
 			}
+			console.log('esta categoria arrojo:',items.length)
 			return items
 		}catch(e){
 			console.log(e)
