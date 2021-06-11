@@ -85,6 +85,15 @@ class Scraping {
 				 	tallas.push({talla: clearString($p(tallas_option).text())})
 				 }
 
+				var dd = $p('.catalog-product-view > div > div').find('dd').eq(1)
+				// console.log($p(dd).find('img').attr('src'))
+				var colores_array = $p(dd).find('img').toArray()
+				var colores = []
+				for await (let color of colores_array) {
+				 	colores.push({color: $p(color).attr('src')})
+				}
+
+
 				var dt = dateTime.create();
 				var created_at = dt.format('Y-m-d H:M:S');
 
@@ -117,6 +126,7 @@ class Scraping {
 					url: $(item).find('a').attr('href'),
 					sku:clearString($p(las_p_sku[1]).find('span').text()),
 					img: imgs,
+					colores:colores,
 					category:sacar_categoria_url[1],
 					name: clearString($(item).find('.item-name').text()),
 					availability: clearString($(las_p[2]).find('span').text()),
