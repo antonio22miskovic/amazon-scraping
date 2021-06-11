@@ -57,6 +57,17 @@ const jsonWrite = async (filePath,newFile) => { // sobre escribir archivo json
 
 }
 
+const newJson = async (filePath,newFile) => {
+
+	try {
+    fs.writeFileSync(filePath,JSON.stringify(newFile));
+    console.log("JSON data is saved.");
+	} catch (error) {
+	   console.error(error);
+	}
+
+}
+
 
 
 module.exports = {
@@ -64,5 +75,6 @@ module.exports = {
 	clearStringPrice,
 	clearStringPriceCurrincy,
 	clearResultArray,
-	jsonWrite
+	jsonWrite,
+	newJson
 }

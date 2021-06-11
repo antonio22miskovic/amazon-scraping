@@ -1,7 +1,7 @@
-// const {conexion} = require('./src/mysql.js')
+// const {conexion, insertDB} = require('./src/mysql.js')
 const {getUrls} = require('./src/urls.js')
 const Scraping = require('./src/scraping.js')
-const {clearResultArray, jsonWrite} = require('./src/helpers.js')
+const {clearResultArray, jsonWrite, newJson} = require('./src/helpers.js')
 const cron = require('node-cron')
 
 let urls = getUrls()
@@ -29,39 +29,16 @@ const run = async (urls) => {
 	await jsonWrite('./src/data/result.json',final_result)
 }
 
-// const prueba = async () => {
-//  let e = await new Scraping().init('https://tiendamia.com/pe/search?amzs=watches').then(res => {
-// 			if (res.length !== 0) {
-// 				for (var i = 0; i < res.length; i++) {
-// 					result.push(res[i])
-// 				}
-// 			}
-// 		})
-//  		console.log('antes de limpiar:',result.length)
-//  		await clearResultArray(result).then( res => {
-// 		final_result = res
-//  		console.log('resultado final limpio:',final_result.length)
-// 		})
-//  		await jsonWrite('./src/data/result.json',final_result)
-//  		// console.log(final_result)
 
+// const iniciador = async (urls) => {
+// 	let json = await require('./src/data/result.json')
+// 	console.log('longitud del archivo',json)
+// 	if (json.length  === 0) {
+// 		run(urls)
+// 	}
 // }
-// prueba()
+run(urls)
 
-const iniciador = async (urls) => {
-	let json = await require('./src/data/result.json')
-	console.log('longitud del archivo',json)
-	if (json.length  === 0) {
-		run(urls)
-	}
-}
-// cron.schedule('*/2 * * * *', () => { // cronometro cada aproximadamente 2 minutos se realiza el scraping
-
-// 	pageScraping()
-
-// })
-iniciador(urls)
-console.log('en la aplicación')
-
-
+// array = require('./src/data/watches_271.json')
+// insertDB(array)
 

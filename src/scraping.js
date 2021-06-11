@@ -1,6 +1,7 @@
 const cheerio = require('cheerio')
 const request = require('request-promise')
 const {clearString, clearStringPrice, clearStringPriceCurrincy} = require('../src/helpers.js')
+const dateTime = require('node-datetime');
 
 class Scraping {
 
@@ -62,25 +63,25 @@ class Scraping {
 				})
 				console.log('info ya consultada')
 				var las_p = await $p('.short-description > div > p').toArray()
+				var las_p_sku = await $p('.short-description > p').toArray()
 				var las_img = await $p('.product-img-box-wrap').find('a').toArray()
 				var des = await $p('.short-description > #shortdesc_producto_ajax > p').toArray()
 				var imgs = await [
-					$p(las_img[0]).find('img').attr('src'),
-					$p(las_img[1]).find('img').attr('src'),
-					$p(las_img[2]).find('img').attr('src'),
-					$p(las_img[3]).find('img').attr('src'),
-					$p(las_img[4]).find('img').attr('src'),
-					$p(las_img[5]).find('img').attr('src'),
+					{img_1: $p(las_img[0]).find('img').attr('src')},
+					{img_2: $p(las_img[1]).find('img').attr('src')},
+					{img_3: $p(las_img[2]).find('img').attr('src')},
+					{img_4: $p(las_img[3]).find('img').attr('src')},
+					{img_5: $p(las_img[4]).find('img').attr('src')},
+					{img_6: $p(las_img[5]).find('img').attr('src')},
 				]
 				 var description = ''
 				 for await (let p of des) {
 				 		description = await description +'. '+clearString($p(p).text())
 				 }
-				console.log(imgs)
-				console.log(clearString($(las_p[2]).find('span').text()))
-				console.log(clearString($p(las_p[3]).find('span').text()))
-				console.log(clearString($p(las_p[4]).find('span').text()))
-				console.log(description)
+
+				var dt = dateTime.create();
+				var created_at = dt.format('Y-m-d H:M:S');
+
 				var tax = null
 				var prices = null
 				var prices_currency =null
@@ -108,6 +109,7 @@ class Scraping {
 
 				let data = await  {
 					url: $(item).find('a').attr('href'),
+					sku:clearString($p(las_p_sku[1]).find('span').text()),
 					img: imgs,
 					category:sacar_categoria_url[1],
 					name: clearString($(item).find('.item-name').text()),
@@ -121,8 +123,10 @@ class Scraping {
 					tax: tax,
 					rating: rating === null ? null : parseInt(rating),
 					discount: discount,
-					description:description
+					description:description,
+					created_at:created_at
 				}
+				console.log(data)
 				if (await
 					data.now_price  !== null  &&
 					data.price_real  !==  null &&
@@ -182,20 +186,24 @@ class Scraping {
 				console.log('se odtuvo la info que falta en el segundo proceso')
 
 				var las_p = await $p('.short-description > div > p').toArray()
+				var las_p_sku = await $p('.short-description > p').toArray()
 				var las_img = await $p('.product-img-box-wrap').find('a').toArray()
 				var des = await $p('.short-description > #shortdesc_producto_ajax > p').toArray()
 				var imgs = await [
-					$p(las_img[0]).find('img').attr('src'),
-					$p(las_img[1]).find('img').attr('src'),
-					$p(las_img[2]).find('img').attr('src'),
-					$p(las_img[3]).find('img').attr('src'),
-					$p(las_img[4]).find('img').attr('src'),
-					$p(las_img[5]).find('img').attr('src'),
+					{img_1: $p(las_img[0]).find('img').attr('src')},
+					{img_2: $p(las_img[1]).find('img').attr('src')},
+					{img_3: $p(las_img[2]).find('img').attr('src')},
+					{img_4: $p(las_img[3]).find('img').attr('src')},
+					{img_5: $p(las_img[4]).find('img').attr('src')},
+					{img_6: $p(las_img[5]).find('img').attr('src')},
 				]
 				 var description = ''
 				 for await (let p of des) {
 				 		description = await description +'. '+clearString($p(p).text())
 				 }
+
+				var dt = dateTime.create();
+				var created_at = dt.format('Y-m-d H:M:S');
 				// console.log(imgs)
 				// console.log(clearString($(las_p[2]).find('span').text()))
 				// console.log(clearString($p(las_p[3]).find('span').text()))
@@ -252,7 +260,9 @@ class Scraping {
 
 
 				let data = await  {
+
 					url: $(item).find('a').attr('href'),
+					sku:clearString($p(las_p_sku[1]).find('span').text()),
 					img: imgs,
 					category:sacar_categoria_url[1],
 					name: clearString($(item).find('.block_holder').children('h2').text()),
@@ -266,7 +276,8 @@ class Scraping {
 					tax: tax,
 					rating: rating === null ? null : parseInt(rating),
 					discount: discount,
-					description:description
+					description:description,
+					created_at:created_at
 					}
 					// console.log(data)
 				if (await
@@ -318,10 +329,10 @@ class Scraping {
 			if (await total_page > 30) {
 				total_page = 30
 			}
-			var array_para_iterar = []
-			for (var i = 0; i < total_page; i++) {
-				array_para_iterar.push(i)
-			}
+			var array_para_iterar = [1]
+			// for (var i = 0; i < total_page; i++) {
+			// 	array_para_iterar.push(i)
+			// }
 			var next = null
 			var aprobar = true
 			for await (let vuelta of array_para_iterar){
